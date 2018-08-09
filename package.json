@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha tests/*.test.js"
   },
-  "author": "erica-ym github",
+  "author": "Ethan Chan",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.240.1",
