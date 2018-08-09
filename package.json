@@ -1,0 +1,26 @@
+{
+  "name": "apisecurity",
+  "version": "1.0.0",
+  "description": "testing security implementation for api.",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha tests/*.test.js"
+  },
+  "author": "erica-ym github",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.240.1",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "file-system": "^2.2.2",
+    "graphql": "^0.13.2",
+    "jsonwebtoken": "^8.3.0",
+    "mocha": "^5.2.0",
+    "npm": "^6.1.0",
+    "path": "^0.12.7",
+    "supertest": "^3.1.0"
+  }
+}
