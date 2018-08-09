@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const graphqlHTTP = require('express-graphql');
+const jwt = require('jsonwebtoken');
+
 const router = express.Router();
 
 //Custom Scripts and functions
