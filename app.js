@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 //Custom Scripts and functions
 const schema = require('./GraphqlSchema/index');
 const auth = require('./authHandler');
+const secret = process.env.SecretKey;
 
 app.use(express.json());
 
@@ -27,27 +28,20 @@ router.get('/logAccess', function(req, res){
     res.sendFile(path.join(__dirname, 'token.html'));    
 });
 
-// router.get('/getToken', function(req, res){
-//     console.log(req.body);
-//     var user = req.body.Username;
-//     var pwd = req.body.pwd;
-//     res.json({
-//         user: user,
-//         password: pwd
-//     });
-//     // user = {
-//     //     id: user,  
-//     // }
-// });
+//Mock Authentication 
 router.post('/signIn', function(req, res){
     console.log(req.body);
-    res.json({
-        user: req.body.Username,
-        password: req.body.pwd
-    });
-});
+    var user = req.body.Username;
+    var pwd = req.body.pwd;
+    if (pwd != "1858Ventures"){
+        res.sendStatus(403);
+    } else {
+        var token = jwt.sign({pwd}, secret);
+        res.json({token: token});
+    }
+}); 
 
-router.get('/protected', function(req, res){
+router.get('/protected', auth, function(req, res){
     res.sendFile(path.join(__dirname, 'helloWorld.html'));
 });
 
