@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script>
+        function submitQuery(){
+				var xhr = new XMLHttpRequest();
+				xhr.responseType = 'json';
+				xhr.open("POST", "/graphql");
+				xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwd2QiOiIxODU4VmVudHVyZXMiLCJpYXQiOjE1MzM5MjQ5Mjh9.5CS3e0vfJpg6SwjxkueuertN2gl8aaxfvErFviFmCs4");
+				xhr.onload = function () {
+					console.log('data returned:', xhr.response);
+				}
+				var query = `query {helloWorld}`;
+				xhr.send(JSON.stringify({
+					query: query,
+				}));
+			}
+    </script>
+    <h2>Hello World</h2>
+    <br>
+    Click the button to get into the graphql endpoint
+    <form>
+        <input type="button" onclick="submitQuery()">
+    </form>
+    <div>
+
+    </div>
+</body>
+</html>

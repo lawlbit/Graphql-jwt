@@ -5,13 +5,13 @@ const graphqlHTTP = require('express-graphql');
 const jwt = require('jsonwebtoken');
 //Custom Scripts and functions
 const schema = require('./GraphqlSchema/index');
-const auth = require('./authHandler');
+const auth = require('./Scripts/authHandler');
 const secret = process.env.SecretKey;
 
 app.use(express.json());
 
 app.use(express.urlencoded({extended:true}));
-// app.disable('x-powered-by');
+app.disable('x-powered-by');
 
 app.listen(8080, function() {
     console.log("purchaseInsights server has started on port 8080");
@@ -19,9 +19,10 @@ app.listen(8080, function() {
 const router = express.Router();
 
 router.get('/', function(req,res){
-	res.json({
-        text: 'Hello World'
-    });
+	// res.json({
+    //     text: 'Hello World'
+    // });
+    res.sendFile(path.join(__dirname, 'query.html'));
 });
 
 router.get('/logAccess', function(req, res){
@@ -30,7 +31,7 @@ router.get('/logAccess', function(req, res){
 
 //Mock Authentication 
 router.post('/signIn', function(req, res){
-    console.log(req.body);
+    console.log(req.headers);
     var user = req.body.Username;
     var pwd = req.body.pwd;
     if (pwd != "1858Ventures"){
@@ -41,13 +42,18 @@ router.post('/signIn', function(req, res){
     }
 }); 
 
-router.get('/protected', auth, function(req, res){
-    res.sendFile(path.join(__dirname, 'helloWorld.html'));
+router.get('/protected', auth.verify, function(req, res){
+    res.json({
+        text: "Hello to you!"
+    })
+    // res.sendFile(path.join(__dirname, 'helloWorld.html'));
 });
 
 app.use('/', router);
-
-app.use('/graphql', graphqlHTTP({
+//auth.verify,
+app.use('/graphql', auth.verify, graphqlHTTP({
 	schema: schema,
 	graphiql: true
 }));
+// console.log(process.env);
+module.exports = app;

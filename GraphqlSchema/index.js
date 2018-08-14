@@ -14,7 +14,8 @@ const RootQuery = new GraphQLObjectType({
         helloWorld: {
             type: GraphQLString,
             resolve(parent,args){
-				return 'Hello World'
+                return 'Hello World'
+                console.log("Hello World");
 			}
         },
         getRandomInt: {
